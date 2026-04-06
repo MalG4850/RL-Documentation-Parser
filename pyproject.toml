@@ -1,0 +1,13 @@
+name = "doc_parser_env"
+version = "0.1.0"
+description = "RL Documentation Parser - Navigate file system to answer queries"
+requires-python = ">=3.10"
+dependencies = [
+    "gymnasium>=0.29.0",
+    "numpy>=1.21.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+]

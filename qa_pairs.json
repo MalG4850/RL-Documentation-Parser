@@ -1,0 +1,27 @@
+[
+    {
+        "query": "How do I configure SSL certificates in the network module?",
+        "file_path": "/root/network/ssl_config.md",
+        "answer": "To configure SSL certificates, add the cert_path and key_path parameters in your network config file and set ssl_enabled: true."
+    },
+    {
+        "query": "What is the default port for PostgreSQL connection?",
+        "file_path": "/root/db/postgres_setup.md",
+        "answer": "The default port for PostgreSQL is 5432."
+    },
+    {
+        "query": "How do I authenticate API requests using OAuth2?",
+        "file_path": "/root/api/oauth_guide.md",
+        "answer": "OAuth2 authentication requires obtaining an access token from the /auth/token endpoint and including it in the Authorization header."
+    },
+    {
+        "query": "What are the available network protocols supported?",
+        "file_path": "/root/network/protocols.md",
+        "answer": "The supported network protocols are TCP, UDP, HTTP, HTTPS, and WebSocket."
+    },
+    {
+        "query": "How do I optimize database query performance?",
+        "file_path": "/root/db/optimization.md",
+        "answer": "Use EXPLAIN ANALYZE to identify slow queries, add indexes on frequently queried columns, and implement connection pooling."
+    }
+]
