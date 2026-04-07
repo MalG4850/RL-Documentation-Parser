@@ -1,0 +1,74 @@
+name: rl-documentation-parser
+version: "1.0.0"
+description: >
+  A Gymnasium environment where an agent navigates a mock filesystem
+  to answer user queries using technical documentation files.
+  Simulates a real-world developer task: searching docs to answer questions.
+author: MalG4850
+repository: https://github.com/MalG4850/RL-Documentation-Parser
+
+observation_space:
+  type: Dict
+  keys:
+    current_path:
+      type: Text
+      max_length: 512
+    dir_contents:
+      type: Text
+      max_length: 2048
+    user_query:
+      type: Text
+      max_length: 512
+
+action_space:
+  type: Discrete
+  n: 4
+  actions:
+    0: ls        # List current directory contents
+    1: cd        # Change directory (requires target)
+    2: read      # Read a .md file (requires target)
+    3: submit_answer  # Submit final answer (requires target = answer text)
+
+reward_range: [-20, 100]
+max_steps: 20
+
+tasks:
+  - id: find_ssl_config
+    difficulty: easy
+    description: >
+      Locate SSL/TLS configuration details from network documentation.
+    grader: exact_match
+    score_range: [0.0, 1.0]
+
+  - id: find_postgres_setup
+    difficulty: medium
+    description: >
+      Find PostgreSQL setup and optimization instructions from db documentation.
+    grader: exact_match
+    score_range: [0.0, 1.0]
+
+  - id: find_oauth_guide
+    difficulty: hard
+    description: >
+      Retrieve OAuth 2.0 authentication steps from the API documentation.
+    grader: exact_match
+    score_range: [0.0, 1.0]
+
+episode_boundaries:
+  done_on_correct_answer: true
+  done_on_wrong_answer: true
+  done_on_max_steps: true
+
+partial_rewards:
+  - condition: "navigates to correct directory"
+    reward: 0   # path penalty only (-1/step), no bonus for direction alone
+  - condition: "reads correct file"
+    reward: 0   # path penalty only; reward is for the final answer
+  - condition: "correct answer submitted"
+    reward: 100
+  - condition: "wrong answer submitted"
+    reward: -20
+  - condition: "invalid action"
+    reward: -5
+  - condition: "per step"
+    reward: -1
